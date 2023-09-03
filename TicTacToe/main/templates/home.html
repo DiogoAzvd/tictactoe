@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+    <head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/css/home.css">
+        <title>Tic Tac Toe</title>
+
+        <script src="static/scripts/home.js"></script>
+    </head>
+
+    <body>
+        <div id="main">
+            <div id="lobby">
+                <div id="title">Lobby</div>
+
+                <div id="header">
+                    <div id="description" style="border-left: none;">Grid</div>
+                    <div id="description">Sequence</div>
+                    <div id="description">ID</div>
+                    <div id="description">Password</div>
+                    <div id="description">Join</div>
+                </div>
+
+                <div id="lobby_list">
+                    {% for i in range(info_len) %}
+                        {% if 2 > info[i][0]%}
+                            <div id="rooms">
+                            {% for j in range(1, 5) %}
+                            
+                                <!-- Checking lobby info aside from the password-->
+                                {% if j != 4 %}                       
+                                    <div id="room_info">{{ info[i][j] }}</div>
+                                
+                                <!-- Checking if there is a password or not-->
+                                {% else %}
+                                    {% if info[i][j] %}
+                                        <div id="room_info">Required</div>
+
+                                    {% else %}
+                                        <div id="room_info">Not Required</div>
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endfor %}
+                                <button id="room_info" class="join" onclick="join('{{ info[i][5] }}')">Join</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="config">
+                <div id="title" class="config_tooltip">
+                    Configurations
+                    <p id="question_mark">?</p>
+
+                    <span class="tooltip">
+                        Grid's value must be higher than sequence's.
+                        Id must have 3 numbers. Password must have 5 numbers or less and can be empty.
+                    </span>
+                </div>
+
+                <form action="/" method="POST" id="form">
+                    <div class="box">
+                        <label for="config_grid">Grid:</label>
+
+                        <select name="grid" id="config_grid">
+                            {% for i in range(3, 10) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="box">
+                        <label for="config_sequence">Sequence:</label>
+
+                        <select name="sequence" id="config_sequence">
+                            {% for i in range(3, 10) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="box">
+                        Id:
+                        <input type="text" name="id" id="config_id" minlength="3" maxlength="3">
+                    </div>
+    
+                    <div class="box">
+                        Password:
+                        <input type="text" name="password" id="config_password" maxlength="5">
+                    </div>
+    
+                    <button type="submit" id="create">Create Lobby</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

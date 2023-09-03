@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+    <head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/confirm.css')}}">
+        <title>Confirmation</title>
+    </head>
+
+    <body>
+        <form action="/lobby/{{ url }}" method="post" id="form">
+            <div id="title">Enter Password</div>
+            <input id="input" type="text" name="confirm_password" maxlength="5">
+            <input id="button" type="submit" value="Confirm">
+
+            {% if error %}
+                <div id="error">Incorrect password</div>
+            {% endif %}
+        </form>
+    </body>
+</html>
